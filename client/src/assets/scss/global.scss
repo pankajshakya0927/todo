@@ -1,0 +1,28 @@
+// global reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.icon-2x {
+    transform: scale(2);
+}
+
+.green {
+    color: green;
+}
+
+.icon-delete {
+    cursor: pointer;
+    color: red;
+}
+
+.mg-r1 {
+    margin-right: 1rem;
+}
+
+.mg-tb1 {
+    margin: 1rem 0 !important;
+}
