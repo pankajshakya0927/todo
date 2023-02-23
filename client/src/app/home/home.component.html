@@ -1,5 +1,9 @@
-<mat-form-field class="form-field">
-    <mat-label>Enter name for your task board</mat-label>
-    <input matInput type="text">
-    <button mat-button>Go to Board</button>
-</mat-form-field>
+<section class="centered">
+    <mat-form-field class="form-field">
+        <mat-label>Enter name for your task board</mat-label>
+        <input matInput type="text" [(ngModel)]="board.name" (keyup.enter)="getBoard()">
+        <button mat-button matSuffix mat-icon-button (click)="getBoard()">
+            <mat-icon class="icon-2x">arrow_forward</mat-icon>
+        </button>
+    </mat-form-field>
+</section>

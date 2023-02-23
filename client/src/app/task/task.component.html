@@ -1,8 +1,9 @@
 <mat-card class="task-card">
+    <mat-icon class="delete-task">cancel</mat-icon>
     <mat-card-header class="task-header">
         <mat-card-title>{{task.name}}</mat-card-title>
         <mat-card-subtitle class="task-subtitle">
-            <input matInput [matDatepicker]="picker" placeholder="Due date">
+            <input matInput [matDatepicker]="picker" placeholder="Due date" [(ngModel)]="task.dueDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-card-subtitle>
@@ -18,8 +19,8 @@
     </mat-card-content>
     <mat-form-field class="form-field">
         <mat-label>Add subtask</mat-label>
-        <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask(task)">
-        <button matSuffix mat-icon-button aria-label="Add Subtask" (click)="addSubtask(task)">
+        <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()">
+        <button matSuffix mat-icon-button aria-label="Add Subtask" (click)="addSubtask()">
             <mat-icon class="green">add_circle</mat-icon>
         </button>
     </mat-form-field>

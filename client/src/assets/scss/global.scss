@@ -6,6 +6,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.icon-1x {
+    transform: scale(1);
+}
+
 .icon-2x {
     transform: scale(2);
 }
@@ -16,7 +20,8 @@
 
 .icon-delete {
     cursor: pointer;
-    color: red;
+    color: #C41E3A;
+    font-size: 1.2rem;
 }
 
 .mg-r1 {
