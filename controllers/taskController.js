@@ -1,34 +1,68 @@
 const mongoose = require("mongoose");
 
 const utils = require("../utilities/utils");
-const Task = require("../models/task");
+const Board = require("../models/board");
 
-exports.newTask = (req, res, next) => {
+exports.getBoard = (req, res) => {
+    if (!req.body || req.body.name === null) {
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid board name");
+    } else {
+        Board.findOne({ name: req.body.name }, (err, board) => {
+            if (err) utils.sendErrorResponse(res, 500, err.name, err.message);
+
+            if (board) {
+                utils.sendSuccessResponse(res, 200, "Board fetched succesfully!", board);
+            } else {
+                // create a board if it doesn't exist
+                const board = new Board(req.body);
+                board.save((err, board) => {
+                    if (err) {
+                        utils.sendErrorResponse(res, 400, err.name, err.message);
+                    } else {
+                        utils.sendSuccessResponse(res, 201, "New board created succesfully!", board);
+                    }
+                });
+            }
+        });
+    }
+}
+
+exports.updateBoard = (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.body._id)) utils.sendErrorResponse(res, 400, "Bad Request", "Invalid object id received. Cannot update task.");
+
+    Board.updateMany({ _id: req.body._id }, req.body, (err, task) => {
+        if (err) {
+            utils.sendErrorResponse(res, 400, err.name, err.message);
+        } else {
+            utils.sendSuccessResponse(res, 200, "Board updated succesfully!", null);
+        }
+    });
+}
+
+exports.newTask = (req, res) => {
     if (!req.body || req.body.name === null) {
         utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
     } else {
-        const task = new Task(req.body);
+        Board.findOneAndUpdate({ name: req.body.boardName }, { $push: { tasks: req.body } }, (err, results) => {
+            if (err) {
+                utils.sendErrorResponse(res, 500, err.name, err.message)
+            } else {
+                utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
+            }
+        })
+    }
+};
 
-        if (!req.body._id) {
-            // insert
-            task.save((err, result) => {
-                if (err) {
-                    utils.sendErrorResponse(res, 400, err.name, err.message);
-                } else {
-                    utils.sendSuccessResponse(res, 201, "New task created succesfully!", null);
-                }
-            });
-        } else {
-            // update
-            if (!mongoose.Types.ObjectId.isValid(req.body._id)) utils.sendErrorResponse(res, 400, "Bad Request", "Invalid object id received. Cannot update task.");
-
-            task.findOneAndUpdate({ _id: card._id}, card, { runValidators: true }, (err, result) => {
-                if (err) {
-                    utils.sendErrorResponse(res, 400, err.name, err.message);
-                } else {
-                    utils.sendSuccessResponse(res, 200, "Task updated succesfully!", null);
-                }
-            });
-        }
+exports.newSubTask = (req, res) => {
+    if (!req.body || req.body.name === null) {
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
+    } else {
+        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName } } }, { $push: { "tasks.$.subtasks": req.body } }, (err, results) => {
+            if (err) {
+                utils.sendErrorResponse(res, 500, err.name, err.message)
+            } else {
+                utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
+            }
+        })
     }
 };

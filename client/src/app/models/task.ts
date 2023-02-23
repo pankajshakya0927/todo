@@ -1,11 +1,14 @@
 export interface Task {
-    name: string,
-    dueDate: Date,
-    priority: number
-    subtasks: Subtask[],
+  name: string;
+  dueDate: Date | null;
+  priority: number;
+  subtasks: Subtask[];
+  boardName: string;
 }
 
 export interface Subtask {
-    name: string,
-    isCompleted: boolean
+  name: string;
+  isCompleted: boolean;
+  taskName: string,
+  boardName: string
 }

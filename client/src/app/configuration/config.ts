@@ -4,6 +4,11 @@ export let config = {
   apiBaseUrl: environment.apiBaseUrl,
 
   urls: {
-    newTask: '/newTask'
+    getBoard: '/getBoard',
+    updateBoard: '/updateBoard',
+
+    getTasks: '/getTasks',
+    newTask: '/newTask',
+    newSubtask: '/newSubtask'
   },
 };
