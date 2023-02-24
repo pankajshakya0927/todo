@@ -21,6 +21,7 @@ const boardSchema = mongoose.Schema({
   isProtected: { type: Boolean, require: false },
   password: { type: String, require: false },
   dateCreated: { type: Date, require: false },
+  bgColor: { type: String, require: false },
   tasks: [taskSchema]
 });
 

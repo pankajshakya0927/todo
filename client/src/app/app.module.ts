@@ -18,9 +18,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ColorPickerComponent } from './shared/components/color-picker/color-picker.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, TaskComponent, HomeComponent],
+  declarations: [AppComponent, DashboardComponent, TaskComponent, HomeComponent, ColorPickerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

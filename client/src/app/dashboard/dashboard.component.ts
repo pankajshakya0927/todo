@@ -24,7 +24,10 @@ export class DashboardComponent implements OnInit {
     password: '',
     dateCreated: new Date(),
     tasks: [],
+    bgColor: '',
   };
+
+  public backgroundColor: string = '';
 
   ngOnInit(): void {
     const params = this.activeRoute.snapshot.params;
@@ -88,5 +91,9 @@ export class DashboardComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  setColor(color: string) {
+    this.backgroundColor = color;
   }
 }

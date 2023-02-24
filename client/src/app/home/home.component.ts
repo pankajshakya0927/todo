@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
     password: '',
     dateCreated: new Date(),
     tasks: [],
+    bgColor: '',
   };
 
   ngOnInit(): void {}
