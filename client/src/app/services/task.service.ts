@@ -25,4 +25,8 @@ export class TaskService {
   saveNewSubtask(subtask: Subtask) {
     return this.http.post(config.apiBaseUrl + config.urls.newSubtask, subtask);
   }
+
+  isCompleteSubtask(subtask: Subtask) {
+    return this.http.post(config.apiBaseUrl + config.urls.isCompleteSubtask, subtask);
+  }
 }

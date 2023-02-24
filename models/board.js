@@ -1,11 +1,18 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
+const subtaskSchema = mongoose.Schema({
+  name: { type: String, require: true, unique: true, trim: true },
+  isCompleted: { type: Boolean, require: false },
+  taskName: { type: String, require: false},
+  boardName: { type: String, required: true },
+});
+
 const taskSchema = mongoose.Schema({
   name: { type: String, require: true, unique: true, trim: true },
   dueDate: { type: Date, require: false },
   priority: { type: Number, require: false },
-  subtasks: { type: Array, require: false},
+  subtasks: [subtaskSchema],
   boardName: { type: String, required: true },
 });
 
@@ -17,6 +24,7 @@ const boardSchema = mongoose.Schema({
   tasks: [taskSchema]
 });
 
+subtaskSchema.plugin(uniqueValidator);
 taskSchema.plugin(uniqueValidator);
 boardSchema.plugin(uniqueValidator);
 module.exports = mongoose.model("Board", boardSchema);

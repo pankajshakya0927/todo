@@ -49,6 +49,22 @@ export class TaskComponent implements OnInit {
     );
   }
 
+  markAsComplete(checked: boolean, subtask: Subtask) {
+    if (subtask) subtask.isCompleted = checked;
+    this.updateSubtask(subtask);
+  }
+
+  updateSubtask(subtask: Subtask) {
+    this.taskService.isCompleteSubtask(subtask).subscribe(
+      (res) => {
+        this.getBoard.emit();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(

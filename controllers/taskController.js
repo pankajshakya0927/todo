@@ -66,3 +66,28 @@ exports.newSubTask = (req, res) => {
         })
     }
 };
+
+exports.isCompleteSubtask = (req, res) => {
+    if (!req.body || req.body.name === null) {
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
+    } else {
+        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName, "subtasks.name": req.body.name } } },
+            {
+                "$set": {
+                    "tasks.$[outer].subtasks.$[inner].isCompleted": req.body.isCompleted
+                }
+            },
+            {
+                "arrayFilters": [
+                    { "outer.name": req.body.taskName },
+                    { "inner.name": req.body.name }
+                ]
+            }, (err, results) => {
+                if (err) {
+                    utils.sendErrorResponse(res, 500, err.name, err.message)
+                } else {
+                    utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
+                }
+            })
+    }
+};

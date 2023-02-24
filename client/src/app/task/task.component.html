@@ -11,7 +11,7 @@
     <mat-card-content class="mg-tb1">
         <div cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
             <div class="box" *ngFor="let subtask of task.subtasks" cdkDrag>
-                <mat-checkbox [checked]="subtask.isCompleted"></mat-checkbox>
+                <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
                 <p [ngClass]="subtask.isCompleted ? 'task-completed' : ''">{{subtask.name}}</p>
                 <mat-icon class="icon-delete">delete</mat-icon>
             </div>
