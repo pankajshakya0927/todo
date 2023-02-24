@@ -43,7 +43,7 @@ exports.newTask = (req, res) => {
     if (!req.body || req.body.name === null) {
         utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
     } else {
-        Board.findOneAndUpdate({ name: req.body.boardName }, { $push: { tasks: req.body } }, (err, results) => {
+        Board.findOneAndUpdate({ name: req.body.boardName, 'tasks.name': { $ne: req.body.name } }, { $push: { tasks: req.body } }, (err, results) => {
             if (err) {
                 utils.sendErrorResponse(res, 500, err.name, err.message)
             } else {
@@ -57,13 +57,14 @@ exports.newSubTask = (req, res) => {
     if (!req.body || req.body.name === null) {
         utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
     } else {
-        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName } } }, { $push: { "tasks.$.subtasks": req.body } }, (err, results) => {
-            if (err) {
-                utils.sendErrorResponse(res, 500, err.name, err.message)
-            } else {
-                utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
-            }
-        })
+        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName, 'subtasks.name': { $ne: req.body.name } } } },
+            { $push: { "tasks.$.subtasks": req.body } }, (err, results) => {
+                if (err) {
+                    utils.sendErrorResponse(res, 500, err.name, err.message)
+                } else {
+                    utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
+                }
+            })
     }
 };
 
@@ -86,7 +87,7 @@ exports.isCompleteSubtask = (req, res) => {
                 if (err) {
                     utils.sendErrorResponse(res, 500, err.name, err.message)
                 } else {
-                    utils.sendSuccessResponse(res, 201, "Task created succesfully!", null);
+                    utils.sendSuccessResponse(res, 201, "Task updated succesfully!", null);
                 }
             })
     }
