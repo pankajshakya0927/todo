@@ -1,5 +1,6 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
+import { AfterContentInit, AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiResponse } from '../models/apiResponse';
 import { Board } from '../models/board';
@@ -11,11 +12,16 @@ import { TaskService } from '../services/task.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewChecked {
   constructor(
     private taskService: TaskService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {}
+
+  ngAfterViewChecked(): void {
+    this.cd.detectChanges();
+  }
 
   taskName: string = '';
   board: Board = {

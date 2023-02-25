@@ -3,7 +3,7 @@
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div #taskCard class="box" cdkDrag>
-                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()" [width]="taskCard.offsetWidth"></app-task>
+                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()" [width]="taskCard.offsetWidth - 56"></app-task>
                 </div>
             </div>
         </ng-container>

@@ -18,6 +18,10 @@
     color: green;
 }
 
+.invert-color {
+    // filter: invert(100%);
+}
+
 .wrap-text {
     overflow-wrap: anywhere;
 }
