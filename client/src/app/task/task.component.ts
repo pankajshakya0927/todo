@@ -17,6 +17,8 @@ export class TaskComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   @Input() task!: Task;
+  @Input() board!: Board;
+  @Input() width!: number;
   @Output() getBoard: EventEmitter<Board> = new EventEmitter();
 
   subtaskName: string = '';
@@ -80,5 +82,19 @@ export class TaskComponent implements OnInit {
         event.currentIndex
       );
     }
+  }
+
+  updateBoard() {
+    this.taskService.updateBoard(this.board).subscribe(
+      (res) => {},
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setTaskColor(color: string) {
+    this.task.bgColor = color;
+    this.updateBoard();
   }
 }

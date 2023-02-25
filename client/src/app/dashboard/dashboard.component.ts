@@ -27,8 +27,6 @@ export class DashboardComponent implements OnInit {
     bgColor: '',
   };
 
-  public backgroundColor: string = '';
-
   ngOnInit(): void {
     const params = this.activeRoute.snapshot.params;
     if (params && params.name) this.board.name = params.name;
@@ -58,6 +56,7 @@ export class DashboardComponent implements OnInit {
       priority: 0,
       subtasks: [],
       boardName: this.board.name,
+      bgColor: '',
     };
     this.board.tasks.push(task);
     this.saveNewTask(task);
@@ -85,6 +84,10 @@ export class DashboardComponent implements OnInit {
     this.board.tasks[event.container.data.index] =
       event.previousContainer.data.item;
 
+    this.updateBoard();
+  }
+
+  updateBoard() {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
@@ -93,7 +96,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  setColor(color: string) {
-    this.backgroundColor = color;
+  setBoardColor(color: string) {
+    this.board.bgColor = color;
+    this.updateBoard();
   }
 }

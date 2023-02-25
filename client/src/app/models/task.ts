@@ -4,6 +4,7 @@ export interface Task {
   priority: number;
   subtasks: Subtask[];
   boardName: string;
+  bgColor: string;
 }
 
 export interface Subtask {

@@ -1,9 +1,9 @@
-<section class="board" [ngStyle]="{background: backgroundColor}">
-    <div class="cards-list" [ngStyle]="{background: backgroundColor}" cdkDropListGroup>
+<section class="board" [ngStyle]="{background: board.bgColor}">
+    <div class="cards-list" [ngStyle]="{background: board.bgColor}" cdkDropListGroup>
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
-                <div class="box" cdkDrag>
-                    <app-task [task]="task" (getBoard)="getBoard()"></app-task>
+                <div #taskCard class="box" cdkDrag>
+                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()" [width]="taskCard.offsetWidth"></app-task>
                 </div>
             </div>
         </ng-container>
@@ -12,7 +12,7 @@
 
 <section>
     <mat-card class="footer">
-        <app-color-picker [color]="backgroundColor" (event)="setColor($event)"></app-color-picker>
+        <app-color-picker [color]="board.bgColor" (event)="setBoardColor($event)"></app-color-picker>
         <div class="add-task">
             <mat-form-field class="form-field">
                 <mat-label>Add a task card</mat-label>

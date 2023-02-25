@@ -6,5 +6,5 @@ export interface Board {
   password: string;
   dateCreated: Date | null;
   tasks: Task[]
-  bgColor: String;
+  bgColor: string;
 }

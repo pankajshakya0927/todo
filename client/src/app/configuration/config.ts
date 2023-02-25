@@ -9,6 +9,8 @@ export let config = {
 
     getTasks: '/getTasks',
     newTask: '/newTask',
+    updateTask: '/updateTask',
+
     newSubtask: '/newSubtask',
     isCompleteSubtask: '/isCompleteSubtask'
   },

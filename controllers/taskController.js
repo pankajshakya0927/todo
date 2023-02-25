@@ -28,7 +28,7 @@ exports.getBoard = (req, res) => {
 }
 
 exports.updateBoard = (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.body._id)) utils.sendErrorResponse(res, 400, "Bad Request", "Invalid object id received. Cannot update task.");
+    if (!mongoose.Types.ObjectId.isValid(req.body._id)) utils.sendErrorResponse(res, 400, "Bad Request", "Invalid object id received. Cannot update board.");
 
     Board.updateMany({ _id: req.body._id }, req.body, (err, task) => {
         if (err) {

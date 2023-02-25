@@ -18,10 +18,17 @@
     color: green;
 }
 
+.wrap-text {
+    overflow-wrap: anywhere;
+}
+
+.font-icon {
+    font-size: 1.2rem !important;
+}
+
 .icon-delete {
     cursor: pointer;
     color: #C41E3A;
-    font-size: 1.2rem;
 }
 
 .mg-r1 {
@@ -30,4 +37,8 @@
 
 .mg-tb1 {
     margin: 1rem 0 !important;
+}
+
+.mg-lr1 {
+    margin: 0 1rem;
 }

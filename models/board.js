@@ -14,6 +14,7 @@ const taskSchema = mongoose.Schema({
   priority: { type: Number, require: false },
   subtasks: [subtaskSchema],
   boardName: { type: String, required: true },
+  bgColor: { type: String, required: false}
 });
 
 const boardSchema = mongoose.Schema({

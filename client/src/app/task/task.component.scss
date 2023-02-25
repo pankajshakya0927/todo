@@ -40,17 +40,31 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.task-card {
-  padding-top: 2.5rem;
+.subtasks-list {
+  max-width: 20rem;
+  max-height: 15rem;
+  overflow: auto;
 }
 
+.card-control {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+// .card-color-picker {
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+// }
+
 .delete-task {
-  position: absolute;
-  right: 0;
-  top: 0;
+  // position: absolute;
+  // right: 0;
+  // top: 0;
   color: #C41E3A;
-  cursor: pointer;
-  margin: 0.4rem !important;
+  // cursor: pointer;
+  // margin: 0.4rem !important;
 }
 
 .form-field {
