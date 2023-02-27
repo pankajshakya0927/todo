@@ -29,4 +29,8 @@ export class TaskService {
   isCompleteSubtask(subtask: Subtask) {
     return this.http.post(config.apiBaseUrl + config.urls.isCompleteSubtask, subtask);
   }
+
+  deleteSubtask(subtask: Subtask) {
+    return this.http.post(config.apiBaseUrl + config.urls.deleteSubtask, subtask)
+  }
 }

@@ -12,6 +12,7 @@ export let config = {
     updateTask: '/updateTask',
 
     newSubtask: '/newSubtask',
-    isCompleteSubtask: '/isCompleteSubtask'
+    isCompleteSubtask: '/isCompleteSubtask',
+    deleteSubtask: '/deleteSubtask'
   },
 };

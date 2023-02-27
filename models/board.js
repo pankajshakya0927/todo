@@ -18,7 +18,7 @@ const taskSchema = mongoose.Schema({
 });
 
 const boardSchema = mongoose.Schema({
-  name: { type: String, require: true, unique: true, trim: true },
+  name: { type: String, require: true, unique: true, trim: true, lowercase: true },
   isProtected: { type: Boolean, require: false },
   password: { type: String, require: false },
   dateCreated: { type: Date, require: false },

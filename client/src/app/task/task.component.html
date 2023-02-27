@@ -1,6 +1,6 @@
 <mat-card [ngStyle]="{background: task.bgColor}">
     <div class="card-control">
-        <div class="color-picker-circle" (click)="openColorPalette(task)"></div>
+        <img class="color-wheel" src="../../assets/icons/color-wheel.png" (click)="openColorPalette(task)">
         <mat-icon class="delete-task">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
@@ -19,7 +19,7 @@
                 </div>
                 <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
                 <p class="wrap-text invert-color start-text" [ngClass]="subtask.isCompleted ? 'task-completed' : ''">{{subtask.name}}</p>
-                <mat-icon class="icon-delete font-icon">delete</mat-icon>
+                <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
             </div>
         </div>
     </mat-card-content>

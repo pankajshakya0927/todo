@@ -3,7 +3,14 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Subscription } from 'rxjs';
@@ -25,10 +32,12 @@ export class TaskComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private bottomSheet: MatBottomSheet
   ) {
-    this.colorChangeSubscription = this.sharedService.$color.subscribe((paint) => {
-      const color = paint as string;
-      this.setTaskColor(color);
-    });
+    this.colorChangeSubscription = this.sharedService.$color.subscribe(
+      (paint) => {
+        const color = paint as string;
+        this.setTaskColor(color);
+      }
+    );
   }
 
   @Input() task!: Task;
@@ -138,6 +147,19 @@ export class TaskComponent implements OnInit, OnDestroy {
       boardName: '',
       bgColor: '',
     };
+  }
+
+  onDeleteSubtask(subtask: Subtask) {
+    if (confirm(`Are you sure to delete "${subtask.name}"?`)) {
+      this.taskService.deleteSubtask(subtask).subscribe(
+        (res) => {
+          this.getBoard.emit();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   ngOnDestroy(): void {

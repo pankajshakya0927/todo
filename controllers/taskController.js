@@ -68,6 +68,21 @@ exports.newSubTask = (req, res) => {
     }
 };
 
+exports.deleteSubTask = (req, res) => {
+    if (!req.body || req.body.name === null) {
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
+    } else {
+        Board.findOneAndUpdate({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName } } },
+            { $pull: { "tasks.$.subtasks": req.body } }, (err, results) => {
+                if (err) {
+                    utils.sendErrorResponse(res, 500, err.name, err.message)
+                } else {
+                    utils.sendSuccessResponse(res, 200, "Task deleted succesfully!", null);
+                }
+            })
+    }
+};
+
 exports.isCompleteSubtask = (req, res) => {
     if (!req.body || req.body.name === null) {
         utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
@@ -87,7 +102,7 @@ exports.isCompleteSubtask = (req, res) => {
                 if (err) {
                     utils.sendErrorResponse(res, 500, err.name, err.message)
                 } else {
-                    utils.sendSuccessResponse(res, 201, "Task updated succesfully!", null);
+                    utils.sendSuccessResponse(res, 200, "Task updated succesfully!", null);
                 }
             })
     }
