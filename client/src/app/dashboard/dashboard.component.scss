@@ -16,10 +16,7 @@
 }
 
 .box {
-    cursor: move;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     text-align: center;
     box-sizing: border-box;
     margin: 0.5rem;
@@ -33,6 +30,14 @@
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
         0 8px 10px 1px rgba(0, 0, 0, 0.14),
         0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-handle {
+    cursor: move;
+    position: absolute;
+    z-index: 1;
+    left: 3rem;
+    top: 1rem;
 }
 
 .cdk-drag-preview {
