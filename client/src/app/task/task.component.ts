@@ -91,7 +91,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   updateSubtask(subtask: Subtask) {
     this.taskService.isCompleteSubtask(subtask).subscribe(
       (res) => {
-        this.getBoard.emit();
+        // this.getBoard.emit();
       },
       (err) => {
         console.log(err);
@@ -150,7 +150,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   onDeleteSubtask(subtask: Subtask) {
-    if (confirm(`Are you sure to delete "${subtask.name}"?`)) {
+    if (confirm(`Are you sure you want to delete "${subtask.name}"?`)) {
       this.taskService.deleteSubtask(subtask).subscribe(
         (res) => {
           this.getBoard.emit();
