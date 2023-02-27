@@ -1,6 +1,6 @@
 <mat-card [ngStyle]="{background: task.bgColor}">
     <div class="card-control">
-        <app-color-picker class="card-color-picker" [color]="task.bgColor" (event)="setTaskColor($event)" [width]="width"></app-color-picker>
+        <div class="color-picker-circle" (click)="openColorPalette(task)"></div>
         <mat-icon class="delete-task">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
@@ -15,7 +15,7 @@
         <div class="mg-lr1" cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
             <div class="box" *ngFor="let subtask of task.subtasks" cdkDrag [ngStyle]="{background: task.bgColor}">
                 <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-                <p class="wrap-text invert-color" [ngClass]="subtask.isCompleted ? 'task-completed' : ''">{{subtask.name}}</p>
+                <p class="wrap-text invert-color start-text" [ngClass]="subtask.isCompleted ? 'task-completed' : ''">{{subtask.name}}</p>
                 <mat-icon class="icon-delete font-icon">delete</mat-icon>
             </div>
         </div>

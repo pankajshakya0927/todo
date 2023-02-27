@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-color-picker',
-  templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss'],
+  selector: 'app-color-palette',
+  templateUrl: './color-palette.component.html',
+  styleUrls: ['./color-palette.component.scss']
 })
-export class ColorPickerComponent {
+export class ColorPaletteComponent {
   @Input() color: string = '';
-  @Input() width!: number;
   @Output() event: EventEmitter<string> = new EventEmitter<string>();
 
-  public show = false;
   public defaultColors: string[] = [
     '#ffffff',
     '#000105',
@@ -39,24 +39,11 @@ export class ColorPickerComponent {
     '#c1800b',
   ];
 
-  constructor() {}
+  constructor(private sharedService: SharedService, private bottomSheetRef: MatBottomSheetRef<ColorPaletteComponent>) {}
 
   changeColor(color: string): void {
     this.color = color;
-    this.event.emit(this.color);
-    this.show = false;
-  }
-
-  public changeColorManual(color: string): void {
-    const isValid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
-
-    if (isValid) {
-      this.color = color;
-      this.event.emit(this.color);
-    }
-  }
-
-  public toggleColors(): void {
-    this.show = !this.show;
+    this.sharedService.setColor(this.color);
+    this.bottomSheetRef.dismiss();
   }
 }

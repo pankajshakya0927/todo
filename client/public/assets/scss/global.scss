@@ -26,6 +26,10 @@
     overflow-wrap: anywhere;
 }
 
+.start-text {
+    text-align: start;
+}
+
 .font-icon {
     font-size: 1.2rem !important;
 }
@@ -45,4 +49,17 @@
 
 .mg-lr1 {
     margin: 0 1rem;
+}
+
+
+.color-picker-circle {
+    $radius: 5px;
+    $size: 35px;
+    height: $size;
+    width: $size;
+    box-sizing: border-box;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 1px solid #dadada;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
 }

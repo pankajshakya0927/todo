@@ -3,7 +3,7 @@
         <ng-container *ngFor="let task of board.tasks; let i=index">
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div #taskCard class="box" cdkDrag>
-                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()" [width]="taskCard.offsetWidth - 56"></app-task>
+                    <app-task [task]="task" [board]="board" (getBoard)="getBoard()"></app-task>
                 </div>
             </div>
         </ng-container>
@@ -12,7 +12,7 @@
 
 <section>
     <mat-card class="footer">
-        <app-color-picker [color]="board.bgColor" (event)="setBoardColor($event)"></app-color-picker>
+        <div class="color-picker-circle" (click)="openColorPalette()"></div>
         <div class="add-task">
             <mat-form-field class="form-field">
                 <mat-label>Add a task card</mat-label>

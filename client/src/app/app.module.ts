@@ -18,10 +18,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ColorPickerComponent } from './shared/components/color-picker/color-picker.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, TaskComponent, HomeComponent, ColorPickerComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    TaskComponent,
+    HomeComponent,
+    ColorPaletteComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,9 +43,11 @@ import { ColorPickerComponent } from './shared/components/color-picker/color-pic
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatBottomSheetModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

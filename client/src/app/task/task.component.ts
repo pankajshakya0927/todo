@@ -3,25 +3,48 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Subscription } from 'rxjs';
+
 import { Board } from '../models/board';
 import { Task, Subtask } from '../models/task';
+import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
+import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent implements OnInit {
-  constructor(private taskService: TaskService) {}
+export class TaskComponent implements OnInit, OnDestroy {
+  constructor(
+    private taskService: TaskService,
+    private sharedService: SharedService,
+    private bottomSheet: MatBottomSheet
+  ) {
+    this.colorChangeSubscription = this.sharedService.$color.subscribe((paint) => {
+      const color = paint as string;
+      this.setTaskColor(color);
+    });
+  }
 
   @Input() task!: Task;
   @Input() board!: Board;
-  @Input() width!: number;
   @Output() getBoard: EventEmitter<Board> = new EventEmitter();
+  colorChangeSubscription: Subscription = new Subscription();
 
   subtaskName: string = '';
+  selectedTask: Task = {
+    name: '',
+    dueDate: null,
+    priority: 0,
+    subtasks: [],
+    boardName: '',
+    bgColor: '',
+  };
 
   ngOnInit(): void {}
 
@@ -94,7 +117,30 @@ export class TaskComponent implements OnInit {
   }
 
   setTaskColor(color: string) {
-    this.task.bgColor = color;
-    this.updateBoard();
+    if (color) {
+      this.selectedTask.bgColor = color;
+      this.updateBoard();
+      this.reset();
+    }
+  }
+
+  openColorPalette(task: Task) {
+    this.selectedTask = task;
+    this.bottomSheet.open(ColorPaletteComponent);
+  }
+
+  reset() {
+    this.selectedTask = {
+      name: '',
+      dueDate: null,
+      priority: 0,
+      subtasks: [],
+      boardName: '',
+      bgColor: '',
+    };
+  }
+
+  ngOnDestroy(): void {
+    this.colorChangeSubscription.unsubscribe();
   }
 }

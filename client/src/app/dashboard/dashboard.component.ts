@@ -1,26 +1,37 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
-import { AfterContentInit, AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ApiResponse } from '../models/apiResponse';
 import { Board } from '../models/board';
 import { Task } from '../models/task';
+import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
+import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, AfterViewChecked {
+export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private activeRoute: ActivatedRoute,
-    private cd: ChangeDetectorRef
-  ) {}
-
-  ngAfterViewChecked(): void {
-    this.cd.detectChanges();
+    private sharedService: SharedService,
+    private bottomSheet: MatBottomSheet
+  ) {
+    this.colorChangeSubscription = this.sharedService.$color.subscribe(
+      (paint) => {
+        const color = paint as string;
+        this.setBoardColor(color);
+      }
+    );
   }
 
   taskName: string = '';
@@ -28,10 +39,12 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
     name: '',
     isProtected: false,
     password: '',
-    dateCreated: new Date(),
+    dateCreated: null,
     tasks: [],
     bgColor: '',
   };
+  changeBoardColor: boolean = false;
+  colorChangeSubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     const params = this.activeRoute.snapshot.params;
@@ -103,7 +116,19 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
   }
 
   setBoardColor(color: string) {
-    this.board.bgColor = color;
-    this.updateBoard();
+    if (this.changeBoardColor) {
+      this.board.bgColor = color;
+      this.updateBoard();
+      this.changeBoardColor = false;
+    }
+  }
+
+  openColorPalette() {
+    this.changeBoardColor = true;
+    this.bottomSheet.open(ColorPaletteComponent);
+  }
+
+  ngOnDestroy(): void {
+    this.colorChangeSubscription.unsubscribe();
   }
 }

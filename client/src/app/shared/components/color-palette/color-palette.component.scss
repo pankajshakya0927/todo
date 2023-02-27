@@ -1,5 +1,7 @@
 .color-picker {
     $radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
 
     .circle {
         $size: 35px;
@@ -12,17 +14,8 @@
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
     }
 
-    .opened {
-        background: #fff;
-        border-radius: $radius;
-        margin-bottom: 15px;
-
-        .colors {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            padding: 5px;
-        }
+    .colors {
+        gap: 5px;
+        padding: 5px;
     }
 }

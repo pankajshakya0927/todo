@@ -1,0 +1,5 @@
+<div class="color-picker">
+    <mat-nav-list class="colors" *ngFor="let paint of defaultColors">
+        <a mat-list-item class="circle" [ngStyle]="{'background': paint}" (click)="changeColor(paint)"></a>
+    </mat-nav-list>
+</div>

@@ -1,8 +1,0 @@
-<div class="color-picker">
-    <div *ngIf="show" class="opened">
-        <div class="colors" [ngStyle]="{width: width + 'px'}">
-            <div (click)="changeColor(paint)" *ngFor="let paint of defaultColors" class="circle" [ngStyle]="{'background': paint}"></div>
-        </div>
-    </div>
-    <div class="circle" [ngStyle]="{'background': color}" (click)="toggleColors()"></div>
-</div>
