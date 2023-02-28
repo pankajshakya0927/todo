@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskComponent } from './task/task.component';
 import { HomeComponent } from './home/home.component';
+import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -21,7 +22,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
-import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { ColorPaletteComponent } from './shared/components/color-palette/color-p
     TaskComponent,
     HomeComponent,
     ColorPaletteComponent,
+    SnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +51,9 @@ import { ColorPaletteComponent } from './shared/components/color-palette/color-p
     HttpClientModule,
     MatBottomSheetModule,
     MatListModule,
+    MatSnackBarModule,
   ],
-  providers: [],
+  providers: [SnackBarComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -13,6 +13,7 @@ import { Task } from '../models/task';
 import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
 import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
+import { SnackBarComponent } from '../shared/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private taskService: TaskService,
     private activeRoute: ActivatedRoute,
     private sharedService: SharedService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private snackbar: SnackBarComponent
   ) {
     this.colorChangeSubscription = this.sharedService.$color.subscribe(
       (paint) => {
@@ -60,7 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.board = (res as ApiResponse).data as Board;
         },
         (err) => {
-          console.log(err);
+          this.snackbar.openSnackBar(err.message, 'Close', 'error');;
         }
       );
     }
@@ -84,11 +86,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   saveNewTask(task: Task) {
     this.taskService.newTask(task).subscribe(
       (res) => {
+        const response = res as ApiResponse;
         this.reset();
         this.getBoard();
+        this.snackbar.openSnackBar(response.message, 'Close', 'success');
       },
       (err) => {
-        console.log(err);
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');;
       }
     );
   }
@@ -110,7 +114,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
-        console.log(err);
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');;
       }
     );
   }

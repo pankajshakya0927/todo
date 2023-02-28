@@ -1,67 +1,79 @@
 // global reset
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
 }
 
 .icon-1x {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 .icon-2x {
-    transform: scale(2);
+  transform: scale(2);
 }
 
 .green {
-    color: green;
+  color: green;
 }
 
 .move-icon {
-    width: 24px;
+  width: 24px;
 }
 
 .move-updown-icon {
-    width: 19px;
+  width: 19px;
 }
 
 .invert-color {
-    // filter: invert(100%);
+  // filter: invert(100%);
 }
 
 .wrap-text {
-    overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
 
 .start-text {
-    text-align: start;
-    margin: 0 2.5rem 1rem 0 !important;
+  text-align: start;
+  margin: 0 2.5rem 1rem 0 !important;
 }
 
 .font-icon {
-    font-size: 1.2rem !important;
+  font-size: 1.2rem !important;
 }
 
 .icon-delete {
-    cursor: pointer;
-    color: #C41E3A;
+  cursor: pointer;
+  color: #c41e3a;
 }
 
 .mg-r1 {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .mg-tb1 {
-    margin: 1rem 0 !important;
+  margin: 1rem 0 !important;
 }
 
 .mg-lr1 {
-    margin: 0 1rem;
+  margin: 0 1rem;
 }
 
-
 .color-wheel {
-    width: 24px;
-    cursor: pointer;
+  width: 24px;
+  cursor: pointer;
+}
+
+.success {
+  background: green;
+}
+.success .mat-simple-snackbar-action {
+  color: white;
+}
+.error {
+  background: red;
+}
+.error .mat-simple-snackbar-action {
+  color: white;
 }

@@ -14,12 +14,14 @@ import {
 
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Subscription } from 'rxjs';
+import { ApiResponse } from '../models/apiResponse';
 
 import { Board } from '../models/board';
 import { Task, Subtask } from '../models/task';
 import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
 import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
+import { SnackBarComponent } from '../shared/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-task',
@@ -30,7 +32,8 @@ export class TaskComponent implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private sharedService: SharedService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private snackbar: SnackBarComponent
   ) {
     this.colorChangeSubscription = this.sharedService.$color.subscribe(
       (paint) => {
@@ -75,10 +78,12 @@ export class TaskComponent implements OnInit, OnDestroy {
   saveNewSubtask(subtask: Subtask) {
     this.taskService.saveNewSubtask(subtask).subscribe(
       (res) => {
+        const response = res as ApiResponse;
         this.getBoard.emit();
+        this.snackbar.openSnackBar(response.message, 'Close', 'success');
       },
       (err) => {
-        console.log(err);
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
       }
     );
   }
@@ -94,7 +99,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         // this.getBoard.emit();
       },
       (err) => {
-        console.log(err);
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
       }
     );
   }
@@ -120,7 +125,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
-        console.log(err);
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
       }
     );
   }
@@ -153,10 +158,16 @@ export class TaskComponent implements OnInit, OnDestroy {
     if (confirm(`Are you sure you want to delete "${subtask.name}"?`)) {
       this.taskService.deleteSubtask(subtask).subscribe(
         (res) => {
+          const response = res as ApiResponse;
+          this.snackbar.openSnackBar(
+            response.message,
+            'Close',
+            'success'
+          );
           this.getBoard.emit();
         },
         (err) => {
-          console.log(err);
+          this.snackbar.openSnackBar(err.message, 'Close', 'error');
         }
       );
     }
