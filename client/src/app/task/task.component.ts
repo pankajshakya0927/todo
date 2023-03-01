@@ -79,7 +79,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.saveNewSubtask(subtask).subscribe(
       (res) => {
         const response = res as ApiResponse;
-        this.getBoard.emit();
+        // this.getBoard.emit();
         this.snackbar.openSnackBar(response.message, 'Close', 'success');
       },
       (err) => {
