@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskComponent } from './task/task.component';
 import { HomeComponent } from './home/home.component';
 import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
+import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -23,7 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.compo
     MatBottomSheetModule,
     MatListModule,
     MatSnackBarModule,
+    MatExpansionModule,
   ],
   providers: [SnackBarComponent],
   bootstrap: [AppComponent],

@@ -10,9 +10,11 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatAccordion } from '@angular/material/expansion';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from '../models/apiResponse';
 
@@ -46,6 +48,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   @Input() task!: Task;
   @Input() board!: Board;
   @Output() getBoard: EventEmitter<Board> = new EventEmitter();
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
   colorChangeSubscription: Subscription = new Subscription();
 
   subtaskName: string = '';
