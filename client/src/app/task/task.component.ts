@@ -96,8 +96,42 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.updateSubtask(subtask);
   }
 
+  onDueDateChange() {
+    this.updateTask();
+  }
+
+  updateTask() {
+    this.taskService.updateTask(this.task).subscribe(
+      (res) => {
+        // this.getBoard.emit();
+      },
+      (err) => {
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+      }
+    );
+  }
+
+  onDeleteTask() {
+    if (confirm(`Are you sure you want to delete card "${this.task.name}"?`)) {
+      this.taskService.deleteTask(this.task).subscribe(
+        (res) => {
+          const response = res as ApiResponse;
+          this.snackbar.openSnackBar(
+            response.message,
+            'Close',
+            'success'
+          );
+          this.getBoard.emit();
+        },
+        (err) => {
+          this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        }
+      );
+    }
+  }
+
   updateSubtask(subtask: Subtask) {
-    this.taskService.isCompleteSubtask(subtask).subscribe(
+    this.taskService.updateSubtask(subtask).subscribe(
       (res) => {
         // this.getBoard.emit();
       },

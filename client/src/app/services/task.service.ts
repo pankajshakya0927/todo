@@ -22,12 +22,20 @@ export class TaskService {
     return this.http.post(config.apiBaseUrl + config.urls.newTask, task);
   }
 
+  updateTask(task: Task) {
+    return this.http.post(config.apiBaseUrl + config.urls.updateTask, task);
+  }
+
+  deleteTask(task: Task) {
+    return this.http.post(config.apiBaseUrl + config.urls.deleteTask, task)
+  }
+
   saveNewSubtask(subtask: Subtask) {
     return this.http.post(config.apiBaseUrl + config.urls.newSubtask, subtask);
   }
 
-  isCompleteSubtask(subtask: Subtask) {
-    return this.http.post(config.apiBaseUrl + config.urls.isCompleteSubtask, subtask);
+  updateSubtask(subtask: Subtask) {
+    return this.http.post(config.apiBaseUrl + config.urls.updateSubtask, subtask);
   }
 
   deleteSubtask(subtask: Subtask) {

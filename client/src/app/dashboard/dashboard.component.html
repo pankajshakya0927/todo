@@ -4,7 +4,7 @@
             <div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="{item:task,index:i}" (cdkDropListDropped)="drop($event)">
                 <div class="box" cdkDrag>
                     <div class="cdk-drag-handle" cdkDragHandle>
-                        <img class="move-icon" aria-hidden src="../../assets/icons/drag-and-drop.png" alt="move-icon">
+                        <img class="move-icon" aria-hidden src="../../assets/icons/drag.png" alt="move-icon">
                     </div>
                     <app-task [task]="task" [board]="board" (getBoard)="getBoard()"></app-task>
                 </div>

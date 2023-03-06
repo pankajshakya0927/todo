@@ -1,12 +1,12 @@
 <mat-card class="task-card" [ngStyle]="{background: task.bgColor}">
     <div class="card-control">
         <img class="color-picker" src="../../assets/icons/color-picker.png" (click)="openColorPalette(task)">
-        <mat-icon class="delete-task">cancel</mat-icon>
+        <mat-icon class="delete-task" (click)="onDeleteTask()">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
         <mat-card-title class="invert-color">{{task.name}}</mat-card-title>
         <mat-card-subtitle class="task-subtitle">
-            <input class="invert-color" matInput [matDatepicker]="picker" placeholder="Due date" [(ngModel)]="task.dueDate">
+            <input class="invert-color" matInput [matDatepicker]="picker" placeholder="Due date" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
             <mat-datepicker-toggle class="invert-color" matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-card-subtitle>
@@ -21,7 +21,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-card-content class="subtasks-list">
-                <div cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
+                <div class="mg-r1" cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
                     <div class="box" *ngFor="let subtask of task.subtasks" cdkDrag cdkDragLockAxis="y" [ngStyle]="{background: task.bgColor}">
                         <div class="cdk-drag-handle" cdkDragHandle>
                             <img class="move-updown-icon" aria-hidden src="../../assets/icons/drag.png" alt="move-icon">

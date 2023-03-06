@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const task: Task = {
       name: this.taskName,
-      dueDate: new Date(),
+      dueDate: null,
       priority: 0,
       subtasks: [],
       boardName: this.board.name,
