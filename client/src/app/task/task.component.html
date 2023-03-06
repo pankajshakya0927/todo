@@ -1,6 +1,6 @@
-<mat-card [ngStyle]="{background: task.bgColor}">
+<mat-card class="task-card" [ngStyle]="{background: task.bgColor}">
     <div class="card-control">
-        <img class="color-wheel" src="../../assets/icons/color-wheel.png" (click)="openColorPalette(task)">
+        <img class="color-picker" src="../../assets/icons/color-picker.png" (click)="openColorPalette(task)">
         <mat-icon class="delete-task">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">

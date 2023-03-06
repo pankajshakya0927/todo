@@ -1,9 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -62,7 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.board = (res as ApiResponse).data as Board;
         },
         (err) => {
-          this.snackbar.openSnackBar(err.message, 'Close', 'error');;
+          this.snackbar.openSnackBar(err.message, 'Close', 'error');
         }
       );
     }
@@ -90,9 +86,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.reset();
         this.getBoard();
         this.snackbar.openSnackBar(response.message, 'Close', 'success');
+        
+        let el = document.getElementById('footer');
+        el?.scrollIntoView({ behavior: 'smooth' });
       },
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');;
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
       }
     );
   }
@@ -114,7 +113,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');;
+        this.snackbar.openSnackBar(err.message, 'Close', 'error');
       }
     );
   }
