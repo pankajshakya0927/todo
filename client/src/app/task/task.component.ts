@@ -176,9 +176,11 @@ export class TaskComponent implements OnInit, OnDestroy {
   setTaskColor(color: string) {
     if (color) {
       this.selectedTask.bgColor = color;
-      this.updateBoard();
-      this.reset();
-      this.adjustTextColor();
+      if (this.selectedTask?.name) {
+        this.updateBoard();
+        this.reset();
+        this.adjustTextColor();
+      }
     }
   }
 
