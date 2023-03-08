@@ -74,6 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       subtasks: [],
       boardName: this.board.name,
       bgColor: '',
+      isDark: false
     };
     this.board.tasks.push(task);
     this.saveNewTask(task);

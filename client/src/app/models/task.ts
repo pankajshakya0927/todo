@@ -5,6 +5,7 @@ export interface Task {
   subtasks: Subtask[];
   boardName: string;
   bgColor: string;
+  isDark: boolean;
 }
 
 export interface Subtask {

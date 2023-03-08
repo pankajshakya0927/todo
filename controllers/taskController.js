@@ -126,7 +126,6 @@ exports.updateSubTask = (req, res) => {
     if (!req.body || req.body.name === null) {
         utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
     } else {
-        console.log(req.body)
         Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName, "subtasks._id": req.body._id } } },
             {
                 "$set": {
@@ -139,7 +138,6 @@ exports.updateSubTask = (req, res) => {
                     { "inner.name": req.body.name }
                 ]
             }, (err, results) => {
-                console.log(err, results.modifiedCount)
                 if (err) {
                     utils.sendErrorResponse(res, 500, err.name, err.message)
                 } else {

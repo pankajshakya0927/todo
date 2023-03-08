@@ -1,22 +1,23 @@
-<mat-card class="task-card" [ngStyle]="{background: task.bgColor}">
+<mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
     <div class="card-control">
         <img class="color-picker" src="../../assets/icons/color-picker.png" (click)="openColorPalette(task)">
         <mat-icon class="delete-task" (click)="onDeleteTask()">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
-        <mat-card-title class="invert-color">{{task.name}}</mat-card-title>
+        <mat-card-title>{{task.name}}</mat-card-title>
         <mat-card-subtitle class="task-subtitle">
-            <input class="invert-color" matInput [matDatepicker]="picker" placeholder="Due date" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
-            <mat-datepicker-toggle class="invert-color" matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <label [hidden]="task.dueDate" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">No due date</label>
+            <input [hidden]="!task.dueDate" matInput [matDatepicker]="picker" placeholder="Due date" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker" [ngClass]="task.isDark ? 'light-text' : 'dark-text'"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-card-subtitle>
     </mat-card-header>
     
 
     <mat-accordion>
-        <mat-expansion-panel [ngStyle]="{background: task.bgColor}">
+        <mat-expansion-panel [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
             <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
                     Subtasks
                 </mat-panel-title>
             </mat-expansion-panel-header>
@@ -26,14 +27,14 @@
                         <div class="cdk-drag-handle" cdkDragHandle>
                             <img class="move-updown-icon" aria-hidden src="../../assets/icons/drag.png" alt="move-icon">
                         </div>
-                        <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-                        <p class="wrap-text invert-color start-text" [ngClass]="subtask.isCompleted ? 'task-completed' : ''">{{subtask.name}}</p>
+                        <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)" [ngClass]="task.isDark ? 'light-background' : ''"></mat-checkbox>
+                        <p class="wrap-text start-text" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{subtask.name}}</p>
                         <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
                     </div>
                 </div>
             </mat-card-content>
             <mat-form-field class="form-field">
-                <mat-label class="invert-color">Add subtask</mat-label>
+                <mat-label [ngClass]="task.isDark ? 'light-text' : 'dark-text'">Add subtask</mat-label>
                 <input matInput type="text" [(ngModel)]="subtaskName" (keyup.enter)="addSubtask()">
                 <button matSuffix mat-icon-button aria-label="Add Subtask" (click)="addSubtask()">
                     <mat-icon class="green font-icon">add_circle</mat-icon>

@@ -59,9 +59,19 @@ export class TaskComponent implements OnInit, OnDestroy {
     subtasks: [],
     boardName: '',
     bgColor: '',
+    isDark: false,
   };
 
-  ngOnInit(): void {}
+  bgColor: string = '';
+  brightness: string = '';
+  r: number = 0;
+  g: number = 0;
+  b: number = 0;
+  hsp!: number;
+
+  ngOnInit(): void {
+    this.adjustTextColor();
+  }
 
   addSubtask() {
     if (this.subtaskName && this.task) {
@@ -116,11 +126,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskService.deleteTask(this.task).subscribe(
         (res) => {
           const response = res as ApiResponse;
-          this.snackbar.openSnackBar(
-            response.message,
-            'Close',
-            'success'
-          );
+          this.snackbar.openSnackBar(response.message, 'Close', 'success');
           this.getBoard.emit();
         },
         (err) => {
@@ -172,6 +178,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.selectedTask.bgColor = color;
       this.updateBoard();
       this.reset();
+      this.adjustTextColor();
     }
   }
 
@@ -188,6 +195,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       subtasks: [],
       boardName: '',
       bgColor: '',
+      isDark: false
     };
   }
 
@@ -196,11 +204,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskService.deleteSubtask(subtask).subscribe(
         (res) => {
           const response = res as ApiResponse;
-          this.snackbar.openSnackBar(
-            response.message,
-            'Close',
-            'success'
-          );
+          this.snackbar.openSnackBar(response.message, 'Close', 'success');
           this.getBoard.emit();
         },
         (err) => {
@@ -212,5 +216,79 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.colorChangeSubscription.unsubscribe();
+  }
+
+  adjustTextColor() {
+    this.bgColor = this.hexToRGB(this.task.bgColor);
+
+    // Call lightOrDark function to get the brightness (light or dark)
+    this.brightness = this.lightOrDark(this.bgColor);
+
+    // If the background color is dark, add the light-text class to it
+    if (this.brightness == 'dark') {
+      this.task.isDark = true;
+      // this.element.classList.add('light-text');
+    } else {
+      this.task.isDark = false;
+      // this.element.classList.add('dark-text');
+    }
+  }
+
+  lightOrDark(color: any) {
+    // Check the format of the color, HEX or RGB?
+    if (color.match(/^rgb/)) {
+      // If HEX --> store the red, green, blue values in separate variables
+      color = color.match(
+        /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+      );
+
+      this.r = color[1];
+      this.g = color[2];
+      this.b = color[3];
+    } else {
+      // If RGB --> Convert it to HEX: http://gist.github.com/983661
+      color = +(
+        '0x' + color.slice(1).replace(color.length < 5 && /./g, '$&$&')
+      );
+
+      this.r = color >> 16;
+      this.g = (color >> 8) & 255;
+      this.b = color & 255;
+    }
+
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    this.hsp = Math.sqrt(
+      0.299 * (this.r * this.r) +
+        0.587 * (this.g * this.g) +
+        0.114 * (this.b * this.b)
+    );
+
+    // Using the HSP value, determine whether the color is light or dark
+    if (this.hsp > 127.5) {
+      return 'light';
+    } else {
+      return 'dark';
+    }
+  }
+
+  hexToRGB(h: any) {
+    let r: number | string = 0;
+    let b: number | string = 0;
+    let g: number | string = 0;
+  
+    // 3 digits
+    if (h.length == 4) {
+      r = "0x" + h[1] + h[1];
+      g = "0x" + h[2] + h[2];
+      b = "0x" + h[3] + h[3];
+  
+    // 6 digits
+    } else if (h.length == 7) {
+      r = "0x" + h[1] + h[2];
+      g = "0x" + h[3] + h[4];
+      b = "0x" + h[5] + h[6];
+    }
+    
+    return "rgb("+ +r + "," + +g + "," + +b + ")";
   }
 }
