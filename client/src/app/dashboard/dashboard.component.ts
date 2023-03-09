@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       subtasks: [],
       boardName: this.board.name,
       bgColor: '',
-      isDark: false
+      isDark: false,
     };
     this.board.tasks.push(task);
     this.saveNewTask(task);
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.reset();
         this.getBoard();
         this.snackbar.openSnackBar(response.message, 'Close', 'success');
-        
+
         let el = document.getElementById('footer');
         el?.scrollIntoView({ behavior: 'smooth' });
       },
@@ -130,6 +130,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openColorPalette() {
     this.changeBoardColor = true;
     this.bottomSheet.open(ColorPaletteComponent);
+  }
+
+  sortByDate() {
+    const future = new Date(8640000000000000);
+    this.board.tasks.sort((a: Task, b: Task) => {
+      let dateA = a.dueDate ? new Date(a.dueDate) : future;
+      let dateB = b.dueDate ? new Date(b.dueDate) : future;
+      return dateA.getTime() - dateB.getTime();
+    });
   }
 
   ngOnDestroy(): void {
