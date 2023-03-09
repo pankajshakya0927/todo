@@ -1,6 +1,6 @@
 <mat-card class="task-card" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
     <div class="card-control">
-        <img class="color-picker" src="../../assets/icons/color-picker.png" (click)="openColorPalette(task)">
+        <img class="color-picker" src="../../assets/icons/palette.png" (click)="openColorPalette(task)">
         <mat-icon class="delete-task" (click)="onDeleteTask()">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
@@ -15,7 +15,7 @@
     
 
     <mat-accordion>
-        <mat-expansion-panel [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
+        <mat-expansion-panel class="mat-elevation-z0" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
             <mat-expansion-panel-header>
                 <mat-panel-title [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
                     Subtasks
@@ -25,9 +25,9 @@
                 <div class="mg-r1" cdkDropList [cdkDropListData]="task.subtasks" (cdkDropListDropped)="drop($event)">
                     <div class="box" *ngFor="let subtask of task.subtasks" cdkDrag cdkDragLockAxis="y" [ngStyle]="{background: task.bgColor}">
                         <div class="cdk-drag-handle" cdkDragHandle>
-                            <img class="move-updown-icon" aria-hidden src="../../assets/icons/drag.png" alt="move-icon">
+                            <img class="move-updown-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
                         </div>
-                        <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)" [ngClass]="task.isDark ? 'light-background' : ''"></mat-checkbox>
+                        <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
                         <p class="wrap-text start-text" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{subtask.name}}</p>
                         <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
                     </div>

@@ -98,12 +98,12 @@
   text-decoration: line-through;
 }
 
-.light-text {
-  color: white;
+::ng-deep mat-checkbox .mat-checkbox-frame{
+  background: white;
 }
 
-.light-background {
-  background-color: white;
+.light-text {
+  color: white;
 }
 
 .dark-text {
