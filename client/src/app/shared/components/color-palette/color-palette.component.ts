@@ -9,7 +9,6 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class ColorPaletteComponent {
   @Input() color: string = '';
-  @Output() event: EventEmitter<string> = new EventEmitter<string>();
 
   public defaultColors: string[] = [
     '#ffffff',

@@ -54,10 +54,10 @@ exports.newTask = (req, res) => {
 };
 
 exports.updateTask = (req, res) => {
-    if (!req.body || req.body.name === null) {
-        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
+    if (!req.body || req.body._id === null) {
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task");
     } else {
-        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.name} } },
+        Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { _id: req.body._id} } },
             {
                 "$set": {
                     "tasks.$[task]": req.body
@@ -65,7 +65,7 @@ exports.updateTask = (req, res) => {
             },
             {
                 "arrayFilters": [
-                    { "task.name": req.body.name },
+                    { "task._id": req.body._id },
                 ]
             }, (err, results) => {
                 if (err) {
@@ -124,7 +124,7 @@ exports.deleteSubTask = (req, res) => {
 
 exports.updateSubTask = (req, res) => {
     if (!req.body || req.body.name === null) {
-        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid task name");
+        utils.sendErrorResponse(res, 400, "Validation Error", "Invalid subtask");
     } else {
         Board.updateOne({ name: req.body.boardName, tasks: { $elemMatch: { name: req.body.taskName, "subtasks._id": req.body._id } } },
             {

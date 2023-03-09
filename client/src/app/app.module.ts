@@ -11,6 +11,7 @@ import { TaskComponent } from './task/task.component';
 import { HomeComponent } from './home/home.component';
 import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
 import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.component';
+import { TextEditableComponent } from './shared/components/text-editable-directive';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +35,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HomeComponent,
     ColorPaletteComponent,
     SnackBarComponent,
+    TextEditableComponent
   ],
   imports: [
     BrowserModule,

@@ -98,7 +98,7 @@
   text-decoration: line-through;
 }
 
-::ng-deep mat-checkbox .mat-checkbox-frame{
+::ng-deep mat-checkbox .mat-checkbox-frame {
   background: white;
 }
 
@@ -108,4 +108,13 @@
 
 .dark-text {
   color: black;
+}
+
+::ng-deep .mat-form-field-outline {
+  opacity: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline {
+  padding: 0 !important;
+  width: 100%;
 }

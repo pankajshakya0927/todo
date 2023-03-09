@@ -102,7 +102,10 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   markAsComplete(checked: boolean, subtask: Subtask) {
-    if (subtask) subtask.isCompleted = checked;
+    if (subtask) {
+      subtask.isCompleted = checked;
+      subtask.taskName = this.task.name;
+    }
     this.updateSubtask(subtask);
   }
 
@@ -214,6 +217,10 @@ export class TaskComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  onTaskNameChange() {
+    this.updateTask();
   }
 
   ngOnDestroy(): void {

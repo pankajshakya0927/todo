@@ -4,7 +4,9 @@
         <mat-icon class="delete-task" (click)="onDeleteTask()">cancel</mat-icon>
     </div>
     <mat-card-header class="task-header">
-        <mat-card-title>{{task.name}}</mat-card-title>
+        <mat-card-title>
+            <div text-editable #taskNameDiv="ngModel" [(ngModel)]="task.name" (blur)="onTaskNameChange()">{{task.name}}</div>
+        </mat-card-title>
         <mat-card-subtitle class="task-subtitle">
             <label [hidden]="task.dueDate" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">No due date</label>
             <input [hidden]="!task.dueDate" matInput [matDatepicker]="picker" placeholder="Due date" [ngClass]="task.isDark ? 'light-text' : 'dark-text'" [(ngModel)]="task.dueDate" (ngModelChange)="onDueDateChange()">
@@ -12,7 +14,6 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-card-subtitle>
     </mat-card-header>
-    
 
     <mat-accordion>
         <mat-expansion-panel class="mat-elevation-z0" [ngStyle]="{background: task.bgColor}" [ngClass]="task.isDark ? 'light-text' : 'dark-text'">
@@ -28,7 +29,7 @@
                             <img class="move-updown-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
                         </div>
                         <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-                        <p class="wrap-text start-text" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{subtask.name}}</p>
+                        <div class="wrap-text start-text" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
                         <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
                     </div>
                 </div>
