@@ -4,9 +4,11 @@ const db = require("./db");
 const bodyParser = require("body-parser");
 const path = require("path");
 const compression = require('compression');
+const helmet = require("helmet");
 
 const taskRoute = require("./routes/taskRoute");
 
+app.use(helmet());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
