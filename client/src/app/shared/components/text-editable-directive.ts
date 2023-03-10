@@ -22,7 +22,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   styles: [
     `
       :host {
-        padding: 1px;
+        padding: 4px 0;
       }
       :host[disabled='true'] {
         pointer-events: none;

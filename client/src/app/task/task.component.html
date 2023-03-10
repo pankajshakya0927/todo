@@ -29,7 +29,7 @@
                             <img class="move-updown-icon" aria-hidden src="../../assets/icons/move.png" alt="move-icon">
                         </div>
                         <mat-checkbox [checked]="subtask.isCompleted" (change)="markAsComplete($event.checked, subtask)"></mat-checkbox>
-                        <div class="wrap-text start-text" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
+                        <div class="wrap-text start-text pd-0" text-editable #taskNameDiv="ngModel" [(ngModel)]="subtask.name" (blur)="onTaskNameChange()" [ngClass]="{ 'task-completed': subtask.isCompleted, 'light-text': task.isDark }">{{task.name}}</div>
                         <mat-icon class="icon-delete font-icon" (click)="onDeleteSubtask(subtask)">delete</mat-icon>
                     </div>
                 </div>
