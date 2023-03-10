@@ -50,6 +50,14 @@
                   "maximumError": "4kb"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": false
+               },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
