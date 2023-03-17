@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { ColorPaletteComponent } from './shared/components/color-palette/color-palette.component';
 import { SnackBarComponent } from './shared/components/snack-bar/snack-bar.component';
 import { TextEditableComponent } from './shared/components/text-editable-directive';
+import { GlobalErrorHandler } from './shared/globalErrorHandler';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
@@ -35,7 +36,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HomeComponent,
     ColorPaletteComponent,
     SnackBarComponent,
-    TextEditableComponent
+    TextEditableComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSnackBarModule,
     MatExpansionModule,
   ],
-  providers: [SnackBarComponent],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    },
+    SnackBarComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

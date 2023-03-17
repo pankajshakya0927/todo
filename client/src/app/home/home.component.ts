@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Board } from '../models/board';
 import { TaskService } from '../services/task.service';
-import { SnackBarComponent } from '../shared/components/snack-bar/snack-bar.component';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private router: Router,
-    private snackbar: SnackBarComponent
+    private notifier: NotificationService
   ) {}
 
   board: Board = {
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
           this.router.navigate([this.board.name]);
         },
         (err) => {
-          this.snackbar.openSnackBar(err.message, 'Close', 'error');
+          throw new Error(err.message);
         }
       );
     }

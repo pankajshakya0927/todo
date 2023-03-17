@@ -23,7 +23,7 @@ import { Task, Subtask } from '../models/task';
 import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
 import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
-import { SnackBarComponent } from '../shared/components/snack-bar/snack-bar.component';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-task',
@@ -35,7 +35,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     private taskService: TaskService,
     private sharedService: SharedService,
     private bottomSheet: MatBottomSheet,
-    private snackbar: SnackBarComponent
+    private notifier: NotificationService
   ) {
     this.colorChangeSubscription = this.sharedService.$color.subscribe(
       (paint) => {
@@ -93,10 +93,10 @@ export class TaskComponent implements OnInit, OnDestroy {
       (res) => {
         const response = res as ApiResponse;
         // this.getBoard.emit();
-        this.snackbar.openSnackBar(response.message, 'Close', 'success');
+        this.notifier.showSuccess(response.message);
       },
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
@@ -119,7 +119,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         // this.getBoard.emit();
       },
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
@@ -129,11 +129,11 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskService.deleteTask(this.task).subscribe(
         (res) => {
           const response = res as ApiResponse;
-          this.snackbar.openSnackBar(response.message, 'Close', 'success');
+          this.notifier.showSuccess(response.message);
           this.getBoard.emit();
         },
         (err) => {
-          this.snackbar.openSnackBar(err.message, 'Close', 'error');
+          throw new Error(err.message);
         }
       );
     }
@@ -145,7 +145,7 @@ export class TaskComponent implements OnInit, OnDestroy {
         // this.getBoard.emit();
       },
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
@@ -171,7 +171,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
@@ -200,7 +200,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       subtasks: [],
       boardName: '',
       bgColor: '',
-      isDark: false
+      isDark: false,
     };
   }
 
@@ -209,17 +209,23 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskService.deleteSubtask(subtask).subscribe(
         (res) => {
           const response = res as ApiResponse;
-          this.snackbar.openSnackBar(response.message, 'Close', 'success');
+          this.notifier.showSuccess(response.message);
           this.getBoard.emit();
         },
         (err) => {
-          this.snackbar.openSnackBar(err.message, 'Close', 'error');
+          throw new Error(err.message);
         }
       );
     }
   }
 
   onTaskNameChange() {
+    // taskName in subtasks should also be updated
+    if (this.task?.name && this.task?.subtasks?.length) {
+      this.task.subtasks.forEach((subtask) => {
+        subtask.taskName = this.task.name;
+      });
+    }
     this.updateTask();
   }
 
@@ -284,20 +290,20 @@ export class TaskComponent implements OnInit, OnDestroy {
     let r: number | string = 0;
     let b: number | string = 0;
     let g: number | string = 0;
-  
+
     // 3 digits
     if (h.length == 4) {
-      r = "0x" + h[1] + h[1];
-      g = "0x" + h[2] + h[2];
-      b = "0x" + h[3] + h[3];
-  
-    // 6 digits
+      r = '0x' + h[1] + h[1];
+      g = '0x' + h[2] + h[2];
+      b = '0x' + h[3] + h[3];
+
+      // 6 digits
     } else if (h.length == 7) {
-      r = "0x" + h[1] + h[2];
-      g = "0x" + h[3] + h[4];
-      b = "0x" + h[5] + h[6];
+      r = '0x' + h[1] + h[2];
+      g = '0x' + h[3] + h[4];
+      b = '0x' + h[5] + h[6];
     }
-    
-    return "rgb("+ +r + "," + +g + "," + +b + ")";
+
+    return 'rgb(' + +r + ',' + +g + ',' + +b + ')';
   }
 }

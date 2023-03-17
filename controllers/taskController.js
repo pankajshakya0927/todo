@@ -116,7 +116,7 @@ exports.deleteSubTask = (req, res) => {
                 if (err) {
                     utils.sendErrorResponse(res, 500, err.name, err.message)
                 } else {
-                    utils.sendSuccessResponse(res, 200, "Task deleted succesfully!", null);
+                    utils.sendSuccessResponse(res, 200, "Sub task deleted succesfully!", null);
                 }
             })
     }

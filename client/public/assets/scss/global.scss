@@ -75,15 +75,23 @@
   cursor: pointer;
 }
 
-.success {
+.success-snackbar {
   background: green;
+  min-width: 100vw !important;
+  margin: 0 !important;
+  padding: 22px 16px !important;
+  border-radius: 0 !important;
 }
-.success .mat-simple-snackbar-action {
+.success-snackbar .mat-simple-snackbar-action {
   color: white;
 }
-.error {
+.error-snackbar {
   background: red;
+  min-width: 100vw !important;
+  margin: 0 !important;
+  padding: 22px 16px !important;
+  border-radius: 0 !important;
 }
-.error .mat-simple-snackbar-action {
+.error-snackbar .mat-simple-snackbar-action {
   color: white;
 }

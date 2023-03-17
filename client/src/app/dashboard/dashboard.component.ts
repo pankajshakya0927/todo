@@ -9,7 +9,7 @@ import { Task } from '../models/task';
 import { SharedService } from '../services/shared.service';
 import { TaskService } from '../services/task.service';
 import { ColorPaletteComponent } from '../shared/components/color-palette/color-palette.component';
-import { SnackBarComponent } from '../shared/components/snack-bar/snack-bar.component';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private sharedService: SharedService,
     private bottomSheet: MatBottomSheet,
-    private snackbar: SnackBarComponent
+    private notifier: NotificationService
   ) {
     this.colorChangeSubscription = this.sharedService.$color.subscribe(
       (paint) => {
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.board = (res as ApiResponse).data as Board;
         },
         (err) => {
-          this.snackbar.openSnackBar(err.message, 'Close', 'error');
+          throw new Error(err.message);
         }
       );
     }
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       priority: 0,
       subtasks: [],
       boardName: this.board.name,
-      bgColor: '',
+      bgColor: '#ffffff',
       isDark: false,
     };
     this.board.tasks.push(task);
@@ -86,13 +86,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const response = res as ApiResponse;
         this.reset();
         this.getBoard();
-        this.snackbar.openSnackBar(response.message, 'Close', 'success');
+        this.notifier.showSuccess(response.message);
 
         let el = document.getElementById('footer');
         el?.scrollIntoView({ behavior: 'smooth' });
       },
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
@@ -114,7 +114,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.taskService.updateBoard(this.board).subscribe(
       (res) => {},
       (err) => {
-        this.snackbar.openSnackBar(err.message, 'Close', 'error');
+        throw new Error(err.message);
       }
     );
   }
