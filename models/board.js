@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const subtaskSchema = mongoose.Schema({
-  name: { type: String, require: true, unique: true, trim: true },
+  name: { type: String, require: true, unique: true, trim: true, sparse: true },
   isCompleted: { type: Boolean, require: false },
-  taskName: { type: String, require: false},
+  taskName: { type: String, require: false },
   boardName: { type: String, required: true },
 });
 
 const taskSchema = mongoose.Schema({
-  name: { type: String, require: true, unique: true, trim: true },
+  name: { type: String, require: true, unique: true, trim: true, sparse: true },
   dueDate: { type: Date, require: false },
   priority: { type: Number, require: false },
   subtasks: [subtaskSchema],
   boardName: { type: String, required: true },
-  bgColor: { type: String, required: false}
+  bgColor: { type: String, required: false }
 });
 
 const boardSchema = mongoose.Schema({
