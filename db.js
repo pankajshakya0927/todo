@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const connectionUrl = "mongodb+srv://admin:kAH410WsHVgqDdwE@cluster0.i0z13er.mongodb.net/?retryWrites=true&w=majority";
-// const connectionUrl = "mongodb://127.0.0.1:27017/todo"; // local connection url
+const connectionUrl = "mongodb://127.0.0.1:27017/todo"; // local connection url
 
 mongoose.set("strictQuery", false);
 mongoose.connect(
