@@ -118,3 +118,9 @@
   padding: 0 !important;
   width: 100%;
 }
+
+::ng-deep .circular-checkbox {
+  & .mat-checkbox-background, .mat-checkbox-frame {
+    border-radius: 70% !important;
+  }
+}
